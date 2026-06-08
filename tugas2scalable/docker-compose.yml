@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  lb-roundrobin:
+    image: nginx:latest
+    container_name: simulasi-lb-roundrobin
+    volumes:
+      - ./nginx-round-robin.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend1
+      - backend2
+      - backend3
+
+  lb-leastconn:
+    image: nginx:latest
+    container_name: simulasi-lb-leastconn
+    volumes:
+      - ./nginx-least-connection.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8082:80"
+    depends_on:
+      - backend1
+      - backend2
+      - backend3
+
+  backend1:
+    image: nginxdemos/hello
+    container_name: simulasi-lb-backend1
+
+  backend2:
+    image: nginxdemos/hello
+    container_name: simulasi-lb-backend2
+
+  backend3:
+    image: nginxdemos/hello
+    container_name: simulasi-lb-backend3
