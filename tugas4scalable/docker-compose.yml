@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+
+  mongo1:
+    image: mongo:7
+    container_name: mongo1
+    ports:
+      - "27017:27017"
+
+  mongo2:
+    image: mongo:7
+    container_name: mongo2
+    ports:
+      - "27018:27017"
+
+  ap-node1:
+    build: ./ap
+    container_name: ap-node1
+    command: python node1.py
+    ports:
+      - "5001:5000"
+
+  ap-node2:
+    build: ./ap
+    container_name: ap-node2
+    command: python node2.py
+    ports:
+      - "5002:5000"
